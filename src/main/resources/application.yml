@@ -1,0 +1,7 @@
+server:
+  port: 8080 # 設定專案 port 為 8080
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost;databaseName=MiniDB  # 設定 H2 資料庫連線位置
+    username: sa # 設定資料庫登入使用者
+    password: Yw8g64sa # 設定資料庫登入密碼
