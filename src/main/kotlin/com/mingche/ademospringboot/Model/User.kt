@@ -7,7 +7,7 @@ import javax.persistence.*
 
 
 @Entity
-@Table(name = "users", schema = "Test")
+@Table(name = "users", schema = "test")
 class User(
 
     /*
@@ -31,18 +31,18 @@ class User(
     @Column(name = "updated_at", nullable = false)
     val updateAt: LocalDate = now(),
 
-    @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    @JoinColumn(name = "equipment_body", referencedColumnName = "equipment_id",nullable = true)
-    val body_slot: Int? = null,
-
-    @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    @JoinColumn(name = "equipment_hand", referencedColumnName = "equipment_id",nullable = true)
-    val hand_slot: Int? = null,
-
-
-//    @JoinTable(name = "bag",
-//                joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "user_id"),
-//                                JoinColumn(name = "equipment_id", referencedColumnName = "equipment_id")])
-    @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    val userBag: MutableList<Bag>? = mutableListOf()
+//    @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+//    @JoinColumn(name = "equipment_body", referencedColumnName = "equipment_id",nullable = true)
+//    val body_slot: Int? = null,
+//
+//    @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+//    @JoinColumn(name = "equipment_hand", referencedColumnName = "equipment_id",nullable = true)
+//    val hand_slot: Int? = null,
+//
+//
+////    @JoinTable(name = "bag",
+////                joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+////                                JoinColumn(name = "equipment_id", referencedColumnName = "equipment_id")])
+//    @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+//    val userBag: MutableList<Bag>? = mutableListOf()
 )
