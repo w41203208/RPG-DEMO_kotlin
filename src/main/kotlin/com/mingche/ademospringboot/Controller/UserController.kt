@@ -1,21 +1,30 @@
 package com.mingche.ademospringboot.Controller
 
-import com.mingche.ademospringboot.Controller.UserController.Companion.BASE_PERSON_URL
+
+import com.mingche.ademospringboot.Model.User
+import com.mingche.ademospringboot.Service.UserService
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = [BASE_PERSON_URL])
-class UserController {
+@RequestMapping(value = [UserController.BASE_USER_URL])
+class UserController(private val userService:UserService) {
 
-    @GetMapping()
-    fun findAllUser(): String{
-        return "test"
+    @GetMapping("/allUsers")
+    fun getAllUsers(): MutableList<User>{
+        return userService.getAllUsers()
+    }
+
+    @PostMapping("/registerUser")
+    fun addUser(@RequestBody registrant: User): User {
+        return userService.registerUser(registrant)
     }
 
     companion object {
-        const val BASE_PERSON_URL: String = "api/v1/user"
+        const val BASE_USER_URL: String = "api/v1/user"
     }
 }
