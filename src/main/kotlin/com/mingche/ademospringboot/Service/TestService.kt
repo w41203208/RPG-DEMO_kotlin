@@ -14,5 +14,6 @@ class TestService(private val testRepository: TestRepository) {
     /*
     *
     * */
-    fun addTest(addTest: TestDTO.AddTestDTO): Test = testRepository.save(Test("test2", addTest.name))
+//    fun addTest(addTest: TestDTO.AddTestDTO): Test = testRepository.addByName(addTest.name)
+    fun addTest(addTest: TestDTO.AddTestDTO): Test = testRepository.save(Test(addTest.name))
 }

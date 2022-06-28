@@ -5,3 +5,5 @@ spring:
     url: jdbc:postgresql://localhost:5432/Test
     username: postgres # 設定資料庫登入使用者
     password: Test # 設定資料庫登入密碼
+jpa:
+  show_sql: true

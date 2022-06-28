@@ -13,8 +13,14 @@ import org.springframework.web.bind.annotation.*
 class TestController(private val testService: TestService) {
 
     @GetMapping("/allTests")
-    fun getAllTests(): MutableList<Test>{
-        return testService.getAllTests()
+    fun getAllTests(): MutableList<Test> {
+        val testList: MutableList<Test> = testService.getAllTests()
+        testList.forEach{
+            println("\n\n")
+            println(it.name)
+            println("\n\n")
+        }
+        return testList
     }
 
     @PostMapping("/addTest")

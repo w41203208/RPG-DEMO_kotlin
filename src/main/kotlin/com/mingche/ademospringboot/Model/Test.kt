@@ -7,12 +7,12 @@ import javax.persistence.*
 @Entity
 @Table(name = "test", schema = "test")
 class Test (
+    @Column(name = "test_name", nullable = false)
+    val name: String,
+){
     @Id
     @GeneratedValue(generator = "uuidGenerator")
     @GenericGenerator(name = "uuidGenerator", strategy = "uuid")
     @Column(name = "test_id", nullable = false)
-    val id: String,
-
-    @Column(name = "test_name", nullable = false)
-    val name: String,
-)
+    val id: String = ""
+}
