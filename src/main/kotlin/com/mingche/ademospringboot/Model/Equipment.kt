@@ -27,9 +27,4 @@ class Equipment (
 
     @Column(name = "equipment_value", nullable = false)
     val value: Int,
-
-//    @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-//    val userBag: MutableList<Bag>? = mutableListOf()
-//    @OneToOne(mappedBy = "hand_slot")
-//    val
 )
