@@ -13,14 +13,12 @@ class UserService(
     fun getAllUsers(): MutableList<User> {
         return userRepository.findAll()
     }
-
     /**
      * register user with username and user password, and if username is existed that not to register successfully.
      */
-    fun registerUser(registrant: Registrant): User?{
+    fun registerUser(registrant: RegistrantDTO): User?{
         // if username is existed, return null
         if(checkUserNameIsExist(registrant.name)) return null
-
         return userRepository.save( User(registrant.name, registrant.password))
     }
     /**
@@ -31,17 +29,12 @@ class UserService(
         if(user.isEmpty) return null
         return user.get()
     }
-    fun updateUserData(updateUserData: UpdatingUserData): User?{
+    fun updateUserData(updateUserData: UpdatingUserDataDTO): User?{
         val oldUser = userRepository.findById(updateUserData.id)
         return if(oldUser.isEmpty){
             null
         }else{
             var newUser = oldUser.get()
-//            var newUser = oldUser.get().apply {
-//                print(this.id)
-//                print(this.name)
-//                print(this.user_Bag)
-//            }
             newUser.name = updateUserData.name
             newUser.password = updateUserData.password
             newUser.updateAt = LocalDate.now()
@@ -49,10 +42,16 @@ class UserService(
             newUser
         }
     }
+    fun saveUserData(user: User): User{
+        return userRepository.save(user)
+    }
     /**
     * 判斷是否已經有相同的名稱
     * */
     fun checkUserNameIsExist(name: String): Boolean{
         return userRepository.findByName(name) != null
     }
+//    fun check(checkfunction: (args: Any) -> Any): () -> Any {
+//        return checkfunction
+//    }
 }

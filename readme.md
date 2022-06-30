@@ -18,19 +18,29 @@
 - 更新資料
   - 可直接修改原查詢的資料在以 repo.save 方式存取回去。( 此部分與 dotnet EF6 相近)
 
+### Kotlin Reflection
+
+- 懶的說明請直接參考 UserController
+- KProperty1 and KMutableProperty
+  - **KMutableProperty** has getter / setter
+  - **KProperty1** only getter
+
 ## Schedule
 
-1. 完成 User API ( mounted / unmounted / makeEquipment)
-2. Login API
-3. Use Vue to do frontend
+1. Login API
+2. Use Vue to do frontend with typescript
+3. EntityManager Learning
 
 ## Learn Step
 
 - kotlin syntax
 - spring boot api
+- Http Client
 
 ## How to Learn
 
+- Http Client：https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html
 - FlyWay：https://flywaydb.org/documentation/
 - SpringBoot：https://ithelp.ithome.com.tw/articles/10245979
+- JPA：https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods
 - PostgreSQL：https://docs.postgresql.tw/the-sql-language/ddl/constraints

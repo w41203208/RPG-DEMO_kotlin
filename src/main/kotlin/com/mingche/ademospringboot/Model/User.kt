@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator
 import java.time.LocalDate
 import java.time.LocalDate.now
 import javax.persistence.*
+import kotlin.properties.ReadWriteProperty
 
 
 @Entity
@@ -23,14 +24,14 @@ class User(
      * */
     @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinColumn(name = "equipment_body", referencedColumnName = "equipment_id", nullable = true)
-    val body_slot: Equipment? = null,
+    var body_slot: Equipment? = null,
 
     /**
      * 每個User都有一個手部裝備槽，與Equipment是1對1關係
      * */
     @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinColumn(name = "equipment_hand", referencedColumnName = "equipment_id",nullable = true)
-    val hand_slot: Equipment? = null, // 這裡外鍵在資料庫是以 Int，但在這裡是屬性要用你關聯的 model
+    var hand_slot: Equipment? = null, // 這裡外鍵在資料庫是以 Int，但在這裡是屬性要用你關聯的 model
 
     /**
      * 每個User都有背包，與Equipment是多對多關係，這裡會是與Bag為1對多

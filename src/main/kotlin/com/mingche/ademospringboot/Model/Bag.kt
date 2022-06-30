@@ -13,11 +13,11 @@ class Bag (
      * FetchType：EAGER 當query的時候即時傳回，LAZY 當query的時候有.get()才有傳回
      * */
     @JsonIgnore
-    @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "user_id")
     val bagOfUser: User,
 
-    @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "equipment_id", referencedColumnName = "equipment_id", nullable = false)
     val equipment: Equipment,
 ){
