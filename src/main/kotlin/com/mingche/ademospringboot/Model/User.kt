@@ -54,5 +54,4 @@ class User(
     @Column(name = "updated_at", nullable = false)
     var updateAt: LocalDate = now()
 
-
 }

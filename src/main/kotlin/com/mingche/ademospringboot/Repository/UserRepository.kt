@@ -11,6 +11,8 @@ interface UserRepository : JpaRepository<User, String> {
     override fun findById(Id: String): Optional<User>
     override fun findAll(): MutableList<User>
     override fun <S : User?> save(entity: S): S
+
+    fun findByNameAndPassword(name: String, password: String): User?
     fun findByName(name: String): User?
 }
 

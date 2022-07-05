@@ -7,6 +7,10 @@ class UserDTO {
         val name: String,
         val password: String,
     )
+    class LoginUserDTO(
+        val name: String,
+        val password: String,
+    )
     class AddingItemInBagDTO(
         val uid: String,
         val eid: Int,

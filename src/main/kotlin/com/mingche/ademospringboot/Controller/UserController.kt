@@ -34,7 +34,17 @@ class UserController(
         return Response(
             state = if (isNull(user)) "BadRequest" else "Success",
             payload = user,
-            message = "User name is exist"
+            message = if (isNull(user)) "User name is exist" else "",
+        )
+    }
+
+    @PostMapping("/loginUser")
+    fun loginUser(@RequestBody loginUser: LoginUserDTO): Response<User?>{
+        val user = userService.loginUser(loginUser.name, loginUser.password)
+        return Response(
+            state = if (isNull(user)) "NotFound" else "Success",
+            payload = user,
+            message = if (isNull(user)) "User name is not exist" else "",
         )
     }
 

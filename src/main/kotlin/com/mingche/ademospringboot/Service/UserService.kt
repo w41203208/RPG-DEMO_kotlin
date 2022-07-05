@@ -22,6 +22,12 @@ class UserService(
         return userRepository.save( User(registrant.name, registrant.password))
     }
     /**
+     * login user with username and user password
+     */
+    fun loginUser(name: String, password: String): User?{
+        return userRepository.findByNameAndPassword(name, password)
+    }
+    /**
     * get user data by id
     * */
     fun getUserById(id: String): User? {
