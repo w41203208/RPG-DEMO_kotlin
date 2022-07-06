@@ -9,9 +9,9 @@
 ### JPA
 
 - 可定義 DTO 來間接解析 JSON 格式
-- Model將自動產生的屬性放到{}裡，而不是在建構子中
+- Model 將自動產生的屬性放到{}裡，而不是在建構子中
 - 關聯方式
-  - Model 中的外鍵直接使用要關聯Model的屬性 (詳情請看 User and Bag Models)
+  - Model 中的外鍵直接使用要關聯 Model 的屬性 (詳情請看 User and Bag Models)
   - OneToMany 在 Model 中會是多加的一個屬性不會放在資料庫中，此欄方便我們在 ORM 查詢的時候使用，會使用到 MappedBy。通常與 ManyToOne 做搭配。
   - ManyToMany 通常直接寫 JoinTable 來存取第三張表，但在此範例中是直接建立三張表來做關聯。
   - FetchType：(待研究) LAZY / EAGER
@@ -27,15 +27,13 @@
 
 ## Schedule
 
-1. Login API
-2. Use Vue to do frontend with typescript
-3. EntityManager Learning
+1. Docker
+2. EntityManager Learning
 
 ## Learn Step
 
-- kotlin syntax
 - spring boot api
-- Http Client
+- Http Client 測試用類似 postman
 
 ## How to Learn
 
