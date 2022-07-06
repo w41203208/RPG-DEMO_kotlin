@@ -39,11 +39,17 @@ class UserController(
     }
 
     @PostMapping("/loginUser")
-    fun loginUser(@RequestBody loginUser: LoginUserDTO): Response<User?>{
+    fun loginUser(@RequestBody loginUser: LoginUserDTO): Response<LoginUserOutputDTO?>{
         val user = userService.loginUser(loginUser.name, loginUser.password)
         return Response(
             state = if (isNull(user)) "NotFound" else "Success",
-            payload = user,
+            payload = if (isNull(user)) null else LoginUserOutputDTO(
+                id = user!!.id,
+                name = user.name,
+                bodySlot = user.body_slot,
+                handSlot = user.hand_slot,
+                userBag = user.user_Bag,
+            ),
             message = if (isNull(user)) "User name is not exist" else "",
         )
     }
@@ -133,11 +139,13 @@ class UserController(
         userService.saveUserData(user)
         if(!isNull(tempEquipment)) bagService.addItemInUserBag(user, tempEquipment!!)
         bagService.deleteItemInUserBagById(mountedEquipmentInputDTO.bid)
+
+        val bag: MutableList<Bag> = userService.getUserById(mountedEquipmentInputDTO.uid)!!.user_Bag
         return Response(
             state = "Success",
             payload = MountedEquipmentOutputDTO(
                 equipmentInBag.equipment,
-                mountedEquipmentInputDTO.bid
+                bag
             )
         )
     }

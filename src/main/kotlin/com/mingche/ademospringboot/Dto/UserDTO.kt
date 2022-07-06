@@ -1,5 +1,6 @@
 package com.mingche.ademospringboot.Dto
 
+import com.mingche.ademospringboot.Model.Bag
 import com.mingche.ademospringboot.Model.Equipment
 
 class UserDTO {
@@ -10,6 +11,13 @@ class UserDTO {
     class LoginUserDTO(
         val name: String,
         val password: String,
+    )
+    class LoginUserOutputDTO(
+        val id: String,
+        val name: String,
+        val bodySlot: Equipment?,
+        val handSlot: Equipment?,
+        val userBag: MutableList<Bag> ,
     )
     class AddingItemInBagDTO(
         val uid: String,
@@ -30,7 +38,7 @@ class UserDTO {
     )
     class MountedEquipmentOutputDTO(
         val mountedEquipment: Equipment,
-        val deleteBagItemId: String,
+        val bag: MutableList<Bag>,
     )
     class UnMountedEquipmentInputDTO(
         val uid: String,
