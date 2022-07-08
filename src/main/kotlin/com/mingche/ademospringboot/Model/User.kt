@@ -11,7 +11,7 @@ import kotlin.properties.ReadWriteProperty
 
 
 @Entity
-@Table(name = "users", schema = "test")
+@Table(name = "users", schema = "jay")
 class User(
     @Column(name = "user_name", nullable = false)
     var name: String,

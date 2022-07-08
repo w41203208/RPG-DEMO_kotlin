@@ -3,8 +3,8 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/Test
+    url: jdbc:postgresql://35.189.161.175:5432/hasura2?currentSchema=jay #jdbc:postgresql://35.189.161.175:5432/hasura2?currentSchema=jay #jdbc:postgresql://localhost:5432/Test #MSSQL 要使用 true 甚麼的才能使用
     username: postgres # 設定資料庫登入使用者
-    password: Test # 設定資料庫登入密碼
+    password: postgrespassword # 設定資料庫登入密碼
 jpa:
   show_sql: true

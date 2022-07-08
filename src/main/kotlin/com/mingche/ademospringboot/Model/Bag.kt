@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator
 import javax.persistence.*
 
 @Entity
-@Table(name = "bag", schema = "Test")
+@Table(name = "bag", schema = "jay")
 class Bag (
 
     /**

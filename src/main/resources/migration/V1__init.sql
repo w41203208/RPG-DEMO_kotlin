@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS test.equipments(
+CREATE TABLE IF NOT EXISTS jay.equipments(
     equipment_id INTEGER NOT NULL,
     equipment_type VARCHAR(255) NOT NULL,
     equipment_name VARCHAR(255) NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS test.equipments(
     CONSTRAINT pk_equipments PRIMARY KEY (equipment_id)
 );
 
-CREATE TABLE IF NOT EXISTS test.bag(
+CREATE TABLE IF NOT EXISTS jay.bag(
     bag_id VARCHAR(255) NOT NULL,
     user_id VARCHAR(255) NOT NULL,
     equipment_id INTEGER NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS test.bag(
     CONSTRAINT fk_bag_on_users FOREIGN KEY (user_id) REFERENCES test.users (user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS test.users(
+CREATE TABLE IF NOT EXISTS jay.users(
     user_id VARCHAR(255) NOT NULL,
     user_name VARCHAR(255) NOT NULL,
     user_password VARCHAR(255) NOT NULL,

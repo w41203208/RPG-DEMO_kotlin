@@ -30,6 +30,7 @@ class UserController(
     }
     @PostMapping("/registerUser")
     fun registerUser(@RequestBody registrant: RegistrantDTO): Response<User?> {
+        println("test")
         val user = userService.registerUser(registrant)
         return Response(
             state = if (isNull(user)) "BadRequest" else "Success",

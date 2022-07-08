@@ -3,7 +3,7 @@ package com.mingche.ademospringboot.Model
 import javax.persistence.*
 
 @Entity
-@Table(name = "equipments", schema = "test")
+@Table(name = "equipments", schema = "jay")
 class Equipment (
     /*
     * IDENTITY 依照資料庫進行auto增加
