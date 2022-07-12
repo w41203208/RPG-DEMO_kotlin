@@ -1,10 +1,22 @@
 server:
   port: 8080 # 設定專案 port 為 8080
+  servlet:
+    context-path: /api/v1
 
 spring:
   datasource:
     url: jdbc:postgresql://35.189.161.175:5432/hasura2?currentSchema=jay #jdbc:postgresql://35.189.161.175:5432/hasura2?currentSchema=jay #jdbc:postgresql://localhost:5432/Test #MSSQL 要使用 true 甚麼的才能使用
     username: postgres # 設定資料庫登入使用者
     password: postgrespassword # 設定資料庫登入密碼
+  flyway:
+    url: jdbc:postgresql://35.189.161.175:5432/hasura2?currentSchema=jay
+    user: postgres
+    password: postgrespassword
+    baseline-on-migrate: true
+    locations:classpath: migration
+    baseline-version: 1.0
+    table: flyway_schema_history
 jpa:
   show_sql: true
+
+
