@@ -10,9 +10,9 @@ class BagService(private val bagRepository: BagRepository) {
         return bagRepository.save(Bag(user, equipment))
     }
     fun getItemInUserBagById(bid: String): Bag?{
-        val bag = bagRepository.findById(bid)
-        if(bag.isEmpty) return null
-        return bag.get()
+        val equipmentInBag = bagRepository.findById(bid)
+        if(equipmentInBag.isEmpty) return null
+        return equipmentInBag.get()
     }
     fun deleteItemInUserBagById(id: String){
         try{

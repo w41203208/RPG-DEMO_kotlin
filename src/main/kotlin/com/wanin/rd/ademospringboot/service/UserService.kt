@@ -5,6 +5,7 @@ import com.wanin.rd.ademospringboot.dto.user.UpdatingUserDataDTO
 import com.wanin.rd.ademospringboot.model.User
 import com.wanin.rd.ademospringboot.repository.UserRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
 
 @Service
@@ -36,6 +37,8 @@ class UserService(
         if(user.isEmpty) return null
         return user.get()
     }
+
+    @Transactional
     fun updateUserData(updateUserData: UpdatingUserDataDTO): User?{
         val oldUser = userRepository.findById(updateUserData.id)
         return if(oldUser.isEmpty){

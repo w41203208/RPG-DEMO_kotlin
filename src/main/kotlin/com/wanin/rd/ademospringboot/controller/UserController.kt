@@ -2,7 +2,6 @@ package com.wanin.rd.ademospringboot.controller
 
 
 
-import com.wanin.rd.ademospringboot.dto.auth.*
 import com.wanin.rd.ademospringboot.dto.bag.*
 import com.wanin.rd.ademospringboot.dto.user.*
 import com.wanin.rd.ademospringboot.model.Bag
@@ -12,6 +11,7 @@ import com.wanin.rd.ademospringboot.service.BagService
 import com.wanin.rd.ademospringboot.service.EquipmentService
 import com.wanin.rd.ademospringboot.service.UserService
 import com.wanin.rd.ademospringboot.util.Response
+import com.wanin.rd.ademospringboot.util.Util
 import org.springframework.web.bind.annotation.*
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.declaredMemberProperties
@@ -22,62 +22,36 @@ import kotlin.reflect.full.declaredMemberProperties
 class UserController(
     private val userService: UserService,
     private val equipmentService: EquipmentService,
-    private val bagService: BagService
+    private val bagService: BagService,
 ) {
-    @GetMapping("/getAllUsers")
+    @GetMapping("/all")
     fun getAllUsers(): Response<MutableList<User>> {
         return Response(
             state = "Success",
             payload = userService.getAllUsers()
         )
     }
-    @PostMapping("/registerUser")
-    fun registerUser(@RequestBody registrant: RegistrantDTO): Response<User?> {
-        println("test")
-        val user = userService.registerUser(registrant)
-        return Response(
-            state = if (isNull(user)) "BadRequest" else "Success",
-            payload = user,
-            message = if (isNull(user)) "User name is exist" else "",
-        )
-    }
 
-    @PostMapping("/loginUser")
-    fun loginUser(@RequestBody loginUser: LoginUserInputDTO): Response<LoginUserOutputDTO?>{
-        val user = userService.loginUser(loginUser.name, loginUser.password)
-        return Response(
-            state = if (isNull(user)) "NotFound" else "Success",
-            payload = if (isNull(user)) null else LoginUserOutputDTO(
-                id = user!!.id,
-                name = user.name,
-                bodySlot = user.body_slot,
-                handSlot = user.hand_slot,
-                userBag = user.user_Bag,
-            ),
-            message = if (isNull(user)) "User name is not exist" else "",
-        )
-    }
-
-    @GetMapping("/getUserById")
+    @GetMapping("")
     fun getUserById(@RequestParam id: String): Response<UserDataDTO?> {
         val user = userService.getUserById(id)
         return Response(
-            state = if (isNull(user)) "NotFound" else "Success",
-            payload = if (isNull(user)) null else UserDataDTO(
+            state = if (Util.isNull(user)) "NotFound" else "Success",
+            payload = if (Util.isNull(user)) null else UserDataDTO(
                 user!!.id,
                 user.name
             )
         )
     }
-    @GetMapping("/getUserEquipmentsById")
+    @GetMapping("/bagOfUser")
     fun getUserEquipmentsById(@RequestParam id: String): Response<MutableList<Bag>?>{
         val user = userService.getUserById(id)
         return Response(
-            state = if (isNull(user)) "NotFound" else "Success",
+            state = if (Util.isNull(user)) "NotFound" else "Success",
             payload = user?.user_Bag
         )
     }
-    @PostMapping("/addItemInUserBag")
+    @PostMapping("/addItemInBag")
     fun addItemInUserBag(@RequestBody addItemInBag: AddingItemInBagDTO): Response<MutableList<Bag>?> {
         val equipment = equipmentService.getEquipmentById(addItemInBag.eid)
             ?: return Response(
@@ -96,20 +70,20 @@ class UserController(
 
         return getUserEquipmentsById(addItemInBag.uid)
     }
-    @PostMapping("/deleteItemInUserBag/{bid}")
-    fun deleteItemInUserBag(@PathVariable bid: String): Response<String>{
-        bagService.deleteItemInUserBagById(bid)
+    @DeleteMapping("/itemInBag/{id}")
+    fun deleteItemInUserBag(@PathVariable id: String): Response<String>{
+        bagService.deleteItemInUserBagById(id)
         return Response(
             state = "Success",
-            payload = bid,
+            payload = id,
         )
     }
-    @PostMapping("/updateUserData")
+    @PutMapping("/update")
     fun updateUserData(@RequestBody updateUserData: UpdatingUserDataDTO): Response<UserDataDTO?>{
         val user = userService.updateUserData(updateUserData)
         return Response(
-            state = if(!isNull(user)) "Success" else "NotFound",
-            payload = if (isNull(user)) null else UserDataDTO(
+            state = if(!Util.isNull(user)) "Success" else "NotFound",
+            payload = if (Util.isNull(user)) null else UserDataDTO(
                 user!!.id,
                 user.name
             )
@@ -141,7 +115,7 @@ class UserController(
             }
         }
         userService.saveUserData(user)
-        if(!isNull(tempEquipment)) bagService.addItemInUserBag(user, tempEquipment!!)
+        if(!Util.isNull(tempEquipment)) bagService.addItemInUserBag(user, tempEquipment!!)
         bagService.deleteItemInUserBagById(mountedEquipmentInputDTO.bid)
 
         val bag: MutableList<Bag> = userService.getUserById(mountedEquipmentInputDTO.uid)!!.user_Bag
@@ -155,7 +129,7 @@ class UserController(
     }
 
     @PostMapping("/unMountedEquipment")
-    fun unMountedEquipment(@RequestBody unMountedEquipmentInputDTO: UnMountedEquipmentInputDTO): Response<UnMountedEquipmentOutputDTO?>{ //
+    fun unMountedEquipment(@RequestBody unMountedEquipmentInputDTO: UnMountedEquipmentInputDTO): Response<UnMountedEquipmentOutputDTO?>{
         val user = userService.getUserById(unMountedEquipmentInputDTO.uid)
             ?: return Response(
                 state = "NotFound",
@@ -192,9 +166,7 @@ class UserController(
 //        bagService.deleteItemInUserBagById(mountedEquipmentDTO.bid)
 //    }
 
-    fun isNull(a: Any?): Boolean{
-        return a == null
-    }
+
 
     @Suppress("UNCHECKED_CAST")
     fun getInstanceProperty(instance: Any, propertyName: String): KMutableProperty<Any>? {
