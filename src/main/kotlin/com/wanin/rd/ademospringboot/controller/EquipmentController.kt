@@ -17,10 +17,8 @@ class EquipmentController(
 
     @GetMapping("/allEquipment")
     fun getAllEquipments(): Response<MutableList<Equipment>> {
-        return Response(
-            state = "Success",
-            payload = equipmentService.getAllEquipment(),
-            message = "",
+        return Response.ok(
+            equipmentService.getAllEquipment(),
         )
 
     }

@@ -19,29 +19,31 @@ class AuthController (
     private val userService: UserService,
 ){
     @PostMapping("/register")
-    fun registerUser(@RequestBody registrant: RegistrantDTO): Response<User?> {
+    fun registerUser(@RequestBody registrant: RegistrantDTO): Response<Any> {
         val user = userService.registerUser(registrant)
-        return Response(
-            state = if (Util.isNull(user)) "BadRequest" else "Success",
-            payload = user,
-            message = if (Util.isNull(user)) "User name is exist" else "",
-        )
+
+        return if(user == null){
+            Response.badRequest().body("User name is exist!")
+        }else{
+            Response.ok(user)
+        }
     }
 
     @PostMapping("/login")
-    fun loginUser(@RequestBody loginUser: LoginUserInputDTO): Response<LoginUserOutputDTO?>{
+    fun loginUser(@RequestBody loginUser: LoginUserInputDTO): Response<Any>{
         val user = userService.loginUser(loginUser.name, loginUser.password)
-        return Response(
-            state = if (Util.isNull(user)) "NotFound" else "Success",
-            payload = if (Util.isNull(user)) null else LoginUserOutputDTO(
-                id = user!!.id,
+
+        return if(user == null){
+            Response.notFound().body("Your username or password is wrong!")
+        }else{
+            Response.ok(LoginUserOutputDTO(
+                id = user.id,
                 name = user.name,
                 bodySlot = user.body_slot,
                 handSlot = user.hand_slot,
                 userBag = user.user_Bag,
-            ),
-            message = if (Util.isNull(user)) "User name is not exist" else "",
-        )
+            ))
+        }
     }
 
     companion object {

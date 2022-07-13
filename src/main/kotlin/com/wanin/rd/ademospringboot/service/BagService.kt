@@ -15,10 +15,6 @@ class BagService(private val bagRepository: BagRepository) {
         return equipmentInBag.get()
     }
     fun deleteItemInUserBagById(id: String){
-        try{
-            bagRepository.deleteById(id)
-        }catch(e: Exception) {
-            print(e)
-        }
+        bagRepository.deleteById(id)
     }
 }
