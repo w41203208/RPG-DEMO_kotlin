@@ -29,6 +29,11 @@ class TestController(private val testService: TestService) {
         return testService.addTest(addTest)
     }
 
+    @GetMapping("/hi")
+    fun hi(): Any{
+        return "hi"
+    }
+
     companion object {
         const val BASE_TEST_URL: String = "/test"
     }
