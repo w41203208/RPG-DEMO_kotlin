@@ -24,7 +24,6 @@ class TestTestController{
 
 	@Test
 	fun contextLoads(){
-
 		println("test")
 	}
 

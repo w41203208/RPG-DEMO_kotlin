@@ -25,6 +25,14 @@
   - **KMutableProperty** has getter / setter
   - **KProperty1** only getter
 
+### Spring boot test
+
+- **MockMvc** 要自己創建資料，並不會使用已建置好的後端服務
+- **TestRestTemplate** 則會去要求已建置好的後端服務
+
+- 以下這篇是我看過有講怎麼配置的最好的
+  - https://matthung0807.blogspot.com/2020/04/spring-boot-junit-mockmvc.html
+
 ## Schedule
 
 1. Docker
