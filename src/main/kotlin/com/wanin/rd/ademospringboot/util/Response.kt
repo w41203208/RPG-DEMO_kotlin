@@ -1,5 +1,7 @@
 package com.wanin.rd.ademospringboot.util
 
+import org.springframework.http.ResponseEntity
+
 
 enum class HttpStatus(var text: String, var code: Int){
     OK("Success", 200),
@@ -21,8 +23,8 @@ class PayloadResponse<T>(
 
 }
 open class Response<T>(
-    private val status: Int,
-) {
+    private val status: Int
+){
 
     companion object{
         fun status(status: Int): ResponseBuilder{

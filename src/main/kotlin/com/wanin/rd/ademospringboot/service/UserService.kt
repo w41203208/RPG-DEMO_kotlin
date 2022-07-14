@@ -8,6 +8,7 @@ import com.wanin.rd.ademospringboot.model.User
 import com.wanin.rd.ademospringboot.repository.BagRepository
 import com.wanin.rd.ademospringboot.repository.UserRepository
 import com.wanin.rd.ademospringboot.util.Util
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
@@ -18,6 +19,11 @@ class UserService(
     private val userRepository: UserRepository,
     private val bagRepository: BagRepository,
 ) {
+    enum class Slot(val type: String){
+
+        BodySlot("body_slot"),
+        HandSlot("hand_slot");
+    }
     /**
      * get all user data
      * */
@@ -28,9 +34,7 @@ class UserService(
      * get user data by id
      * */
     fun getUserById(id: String): User?{
-        val user = userRepository.findById(id)
-        if(Util.isNull(user)) return null
-        return user.get()
+        return userRepository.findByIdOrNull(id)
     }
     /**
      * register user with username and user password, and if username is existed that not to register successfully.
@@ -101,26 +105,29 @@ class UserService(
     }
     fun getUserSlotEquipment(type: String, user: User): Optional<Equipment>?{
         when(type){
-            "body_slot" -> {
+            Slot.BodySlot.type -> {
                 return Optional.ofNullable(user.body_slot)
             }
-            "hand_slot" -> {
-                return Optional.ofNullable(user.body_slot)
+            Slot.HandSlot.type -> {
+                return Optional.ofNullable(user.hand_slot)
             }
         }
         return null
     }
     fun setUserSlotEquipmentIsNull(type: String, user: User): User{
         when(type){
-            "body_slot" -> {
+
+            Slot.BodySlot.type -> {
                 user.body_slot = null
             }
-            "hand_slot" -> {
-                user.body_slot = null
+            Slot.HandSlot.type -> {
+                user.hand_slot = null
             }
         }
         return user
     }
+
+
 //    fun check(checkfunction: (args: Any) -> Any): () -> Any {
 //        return checkfunction
 //    }

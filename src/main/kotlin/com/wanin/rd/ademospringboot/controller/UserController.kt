@@ -101,10 +101,7 @@ class UserController(
         )
     }
 
-    enum class Slot(type: String){
-        BodySlot("body_slot"),
-        HandSlot("hand_slot");
-    }
+
 
     @PostMapping("/unMountedEquipment")
     fun unMountedEquipment(@RequestBody unMountedEquipmentInputDTO: UnMountedEquipmentInputDTO): Response<Any>{

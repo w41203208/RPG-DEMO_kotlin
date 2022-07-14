@@ -3,10 +3,9 @@ package com.wanin.rd.ademospringboot.controller
 import com.wanin.rd.ademospringboot.dto.auth.LoginUserInputDTO
 import com.wanin.rd.ademospringboot.dto.auth.LoginUserOutputDTO
 import com.wanin.rd.ademospringboot.dto.auth.RegistrantDTO
-import com.wanin.rd.ademospringboot.model.User
 import com.wanin.rd.ademospringboot.service.UserService
 import com.wanin.rd.ademospringboot.util.Response
-import com.wanin.rd.ademospringboot.util.Util
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -21,7 +20,6 @@ class AuthController (
     @PostMapping("/register")
     fun registerUser(@RequestBody registrant: RegistrantDTO): Response<Any> {
         val user = userService.registerUser(registrant)
-
         return if(user == null){
             Response.badRequest().body("User name is exist!")
         }else{
