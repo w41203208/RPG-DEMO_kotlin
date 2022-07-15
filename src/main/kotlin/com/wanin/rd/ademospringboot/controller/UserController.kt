@@ -32,19 +32,19 @@ class UserController(
     }
 
     @GetMapping("")
-    fun getUserById(@RequestParam id: String): Response<Any> {
+    fun getUserById(@RequestParam id: String): Response<Any?> {
         val user = userService.getUserById(id)
         return if(user == null){
             Response.notFound().body("Not found user by Id!")
         }else{
             Response.ok(UserDataDTO(
-                id = user.id,
-                name = user.name
+                user.id,
+                user.name
             ))
         }
     }
     @GetMapping("/bagOfUser")
-    fun getUserEquipmentsById(@RequestParam id: String): Response<Any>{
+    fun getUserEquipmentsById(@RequestParam id: String): Response<Any?>{
         val user = userService.getUserById(id)
 
         return if(user == null){
@@ -54,7 +54,7 @@ class UserController(
         }
     }
     @PostMapping("/addItemInBag")
-    fun addItemInUserBag(@RequestBody addItemInBag: AddingItemInBagDTO): Response<Any> {
+    fun addItemInUserBag(@RequestBody addItemInBag: AddingItemInBagDTO): Response<Any?> {
         val equipment = equipmentService.getEquipmentById(addItemInBag.eid)
             ?: return Response.notFound().body("Equipment is not exist!")
 
@@ -71,7 +71,7 @@ class UserController(
         return Response.ok(id)
     }
     @PutMapping("/update")
-    fun updateUserData(@RequestBody updateUserData: UpdatingUserDataDTO): Response<Any>{
+    fun updateUserData(@RequestBody updateUserData: UpdatingUserDataDTO): Response<Any?>{
         val user = userService.updateUserData(updateUserData)
         return if(user == null){
             Response.notFound().body("User is not exist!")
@@ -83,7 +83,7 @@ class UserController(
         }
     }
     @PostMapping("/mountedEquipment")
-    fun mountedEquipment(@RequestBody mountedEquipmentInputDTO: MountedEquipmentInputDTO): Response<Any>{
+    fun mountedEquipment(@RequestBody mountedEquipmentInputDTO: MountedEquipmentInputDTO): Response<Any?>{
         val user = userService.getUserById(mountedEquipmentInputDTO.uid)
             ?: return Response.notFound().body("User is not exist!")
 
@@ -104,7 +104,7 @@ class UserController(
 
 
     @PostMapping("/unMountedEquipment")
-    fun unMountedEquipment(@RequestBody unMountedEquipmentInputDTO: UnMountedEquipmentInputDTO): Response<Any>{
+    fun unMountedEquipment(@RequestBody unMountedEquipmentInputDTO: UnMountedEquipmentInputDTO): Response<Any?>{
         val user = userService.getUserById(unMountedEquipmentInputDTO.uid)
             ?: return Response.notFound().body("User is not exist!")
 

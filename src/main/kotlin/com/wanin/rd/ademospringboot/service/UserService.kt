@@ -47,9 +47,32 @@ class UserService(
     /**
      * login user with username and user password
      */
-    fun loginUser(name: String, password: String): User?{
-        return userRepository.findByNameAndPassword(name, password)
+    fun loginUser(name: String, password: String): MutableMap<String, Any?>{
+        val result = mutableMapOf<String, Any?>()
+
+        if(!checkUserNameInputIsNotNull(name)) {
+            result["rlt"] = "User name cannot be null!"
+            return result
+        }
+        if(!checkPasswordInputIsNotNull(password)){
+            result["rlt"] = "Password cannot be null!"
+            return result
+        }
+        val user = userRepository.findByName(name)
+        if(user == null){
+            result["rlt"] = "User is not exist!"
+            return result
+        }
+        if(user.password != password){
+            result["rlt"] = "Password is not correct!"
+            return result
+        }
+
+        result["rlt"] = user
+        return result
     }
+
+
     @Transactional
     fun updateUserData(updateUserData: UpdatingUserDataDTO): User?{
         val oldUser = userRepository.findById(updateUserData.id)
@@ -102,6 +125,12 @@ class UserService(
     * */
     fun checkUserNameIsExist(name: String): Boolean{
         return userRepository.findByName(name) != null
+    }
+    fun checkUserNameInputIsNotNull(name: String): Boolean{
+        return name != ""
+    }
+    fun checkPasswordInputIsNotNull(password: String): Boolean{
+        return password != ""
     }
     fun getUserSlotEquipment(type: String, user: User): Optional<Equipment>?{
         when(type){

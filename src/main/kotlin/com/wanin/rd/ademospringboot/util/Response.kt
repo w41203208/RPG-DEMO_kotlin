@@ -11,8 +11,8 @@ enum class HttpStatus(var text: String, var code: Int){
 
 class MessageResponse(
     val status: Int,
-    val message: String,
-): Response<Any>(status){
+    val message: String?,
+): Response<Any?>(status){
 
 }
 
@@ -56,7 +56,7 @@ class DefaultBuilder(private val statusCode: Int): ResponseBuilder{
         )
     }
 
-    override fun body(message: String): MessageResponse{
+    override fun body(message: String?): MessageResponse{
         return MessageResponse(
             status = this.statusCode,
             message = message
@@ -67,7 +67,7 @@ class DefaultBuilder(private val statusCode: Int): ResponseBuilder{
 interface ResponseBuilder{
     fun <T> body(body: T): PayloadResponse<T>
 
-    fun body(message: String): MessageResponse
+    fun body(message: String?): MessageResponse
 }
 
 

@@ -77,13 +77,16 @@ class TestUserController {
     @Test
     fun getAllUserTest(){
         val request: RequestBuilder = MockMvcRequestBuilders.get("/user/all")
-        val result: MvcResult = mvc.perform(request).andExpect(status().isOk).andExpect(content().contentType(MediaType.APPLICATION_JSON)).andReturn()
+        val result: MvcResult = mvc.perform(request)
+            .andExpect(status().isOk)
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn()
         print(result.response.contentAsString)
     }
 
     @Test
     fun getUserByIdTest_withIdExist(){
-        var request: RequestBuilder = MockMvcRequestBuilders.get("/user/?id=402881e281f194310181f194468b0000")
+        var request: RequestBuilder = MockMvcRequestBuilders.get("/user/?id=402881e281ffb70b0181ffb714590000")
             .accept(MediaType.APPLICATION_JSON)
         val result: MvcResult = mvc.perform(request)
             .andExpect(status().isOk)

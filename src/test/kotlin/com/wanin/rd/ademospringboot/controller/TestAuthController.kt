@@ -36,7 +36,7 @@ class TestAuthController {
     @Test
     fun postRegisterTest_withPasswordAndNameIsExist(){
         var request: RequestBuilder = MockMvcRequestBuilders.post("/auth/register")
-            .content("{\"name\": \"Jay\",\"password\": \"test\"}")
+            .content("{\"name\": \"Ming\",\"password\": \"test\"}")
             .contentType(MediaType.APPLICATION_JSON)
         val result: MvcResult = mvc.perform(request)
             .andExpect(MockMvcResultMatchers.status().isOk)
@@ -46,7 +46,7 @@ class TestAuthController {
     @Test
     fun postRegisterTest_withPasswordAndNameIsTrue(){
         var request: RequestBuilder = MockMvcRequestBuilders.post("/auth/register")
-            .content("{\"name\": \"Jayy\",\"password\": \"test\"}")
+            .content("{\"name\": \"Jay\",\"password\": \"test\"}")
             .contentType(MediaType.APPLICATION_JSON)
         val result: MvcResult = mvc.perform(request)
             .andExpect(MockMvcResultMatchers.status().isOk)
@@ -57,34 +57,57 @@ class TestAuthController {
     @Test
     fun postLoginTest_withPasswordAndNameIsTrue(){
         var request: RequestBuilder = MockMvcRequestBuilders.post("/auth/login")
+            .content("{\"name\": \"Jay\",\"password\": \"test\"}")
+            .contentType(MediaType.APPLICATION_JSON)
+        val result: MvcResult = mvc.perform(request)
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn()
+    }
+    @Test
+    fun postLoginTest_withNameAndPasswordBothNull(){
+        var request: RequestBuilder = MockMvcRequestBuilders.post("/auth/login")
+            .content("{\"name\": \"\",\"password\": \"\"}")
+            .contentType(MediaType.APPLICATION_JSON)
+        val result: MvcResult = mvc.perform(request)
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(MockMvcResultMatchers.content().string("{\"status\":400,\"message\":\"User name cannot be null!\"}"))
+            .andReturn()
+    }
+    @Test
+    fun postLoginTest_withNameIsTrueAndPasswordIsNull(){
+        var request: RequestBuilder = MockMvcRequestBuilders.post("/auth/login")
+            .content("{\"name\": \"Jay\",\"password\": \"\"}")
+            .contentType(MediaType.APPLICATION_JSON)
+        val result: MvcResult = mvc.perform(request)
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(MockMvcResultMatchers.content().string("{\"status\":400,\"message\":\"Password cannot be null!\"}"))
+            .andReturn()
+    }
+
+    @Test
+    fun postLoginTest_withNameIsFalseAndPasswordIsTrue(){
+        var request: RequestBuilder = MockMvcRequestBuilders.post("/auth/login")
             .content("{\"name\": \"Jayy\",\"password\": \"test\"}")
             .contentType(MediaType.APPLICATION_JSON)
         val result: MvcResult = mvc.perform(request)
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-            .andReturn()
-    }
-    @Test
-    fun postLoginTest_withPasswordIsFalseAndNameIsTrue(){
-        var request: RequestBuilder = MockMvcRequestBuilders.post("/auth/login")
-            .content("{\"name\": \"Jayy\",\"password\": \"testt\"}")
-            .contentType(MediaType.APPLICATION_JSON)
-        val result: MvcResult = mvc.perform(request)
-            .andExpect(MockMvcResultMatchers.status().isOk)
-            .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.content().string("{\"status\":404,\"message\":\"Your username or password is wrong!\"}"))
+            .andExpect(MockMvcResultMatchers.content().string("{\"status\":400,\"message\":\"User is not exist!\"}"))
             .andReturn()
     }
 
     @Test
-    fun postLoginTest_withPasswordIsTrueAndNameIsFalse(){
+    fun postLoginTest_withNameIsTrueAndPasswordIsFalse(){
         var request: RequestBuilder = MockMvcRequestBuilders.post("/auth/login")
-            .content("{\"name\": \"Jayyy\",\"password\": \"test\"}")
+            .content("{\"name\": \"Jay\",\"password\": \"testt\"}")
             .contentType(MediaType.APPLICATION_JSON)
         val result: MvcResult = mvc.perform(request)
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.content().string("{\"status\":404,\"message\":\"Your username or password is wrong!\"}"))
+            .andExpect(MockMvcResultMatchers.content().string("{\"status\":400,\"message\":\"Password is not correct!\"}"))
             .andReturn()
     }
 
