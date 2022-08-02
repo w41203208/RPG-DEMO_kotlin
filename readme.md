@@ -6,6 +6,10 @@
 
 ## Skill Share
 
+### application.yml
+
+- 可以設定很多有的沒的，需要使用再找即可
+
 ### JPA
 
 - 可定義 DTO 來間接解析 JSON 格式
@@ -17,6 +21,13 @@
   - FetchType：(待研究) LAZY / EAGER
 - 更新資料
   - 可直接修改原查詢的資料在以 repo.save 方式存取回去。( 此部分與 dotnet EF6 相近)
+  
+### Flyway
+
+- application.yml 裡面可以設置 migration 的資料夾要放在哪裡
+- 當 Flyway 偵測到 migration 資料夾，會依序執行內部的 sql 檔案
+- Format：V1__init.sql，**V[x]__[name].sql**
+
 
 ### Kotlin Reflection
 
