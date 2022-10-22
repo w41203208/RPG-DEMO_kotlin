@@ -1,4 +1,5 @@
 # RPGDEMO
+以 RPG 為主題，製作 API 來提供前端串接，實現 Spring Boot 所提供的功能，並且使用 Flyway 來對資料庫進行初始化以及變更，並使用 JPA 來做到 ORM 的方式來操作資料庫。當然其中較為複雜的 SQL 指令還是會使用原來的 sql 方式來進行 CRUD。
 
 ## Use Skill
 
